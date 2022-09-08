@@ -123,6 +123,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="SRAM_Control.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SRAM_Control.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UART_Control.c">
       <SubType>compile</SubType>
     </Compile>

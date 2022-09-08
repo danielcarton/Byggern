@@ -2,6 +2,7 @@
 #include <util/delay.h>
 #include <stdio.h>
 #include "UART_Control.h"
+#include "SRAM_Control.h"
 
 #define OFFSET 0x1000
 #define F_CPU 4915200
@@ -11,19 +12,9 @@
 
 int main(){
 	uart_start(MYBURR);
+	MCUCR = (1<<SRE);
 	FILE *Stream;
-
 	Stream = fdevopen(&uart_transmit, &uart_recieve);
 
-	printf("This is working\n");
-	/* Replace with your application code */
-	unsigned char ch, last=0;
-	while (1)
-	{
-		ch=uart_recieve();
-		if(last != ch){
-			printf("%c", ch);
-		}
-		last=ch;
-	}
+	SRAM_test();
 }
