@@ -6,6 +6,8 @@ ADC_control.c
 
 main.c
 
+OLED_control.c
+
 SRAM_Control.c
 
 UART_Control.c

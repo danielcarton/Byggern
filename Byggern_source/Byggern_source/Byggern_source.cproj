@@ -129,6 +129,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="OLED_control.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="OLED_control.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SRAM_Control.c">
       <SubType>compile</SubType>
     </Compile>

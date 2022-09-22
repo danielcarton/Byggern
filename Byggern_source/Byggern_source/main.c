@@ -17,8 +17,41 @@ int main(){
 	
 	int counter=0;
 	adc_init(counter);
+	OLED_init();
 	
 	MCUCR = (1<<SRE);
-	SRAM_test();
+	while (1)
+	{
+	ADC_start_read(CHANNEL3);
+	_delay_ms(1);
 
+
+	int button1State;
+	if (PIND & (1<<PD2))    // see comment #2
+	{
+		button1State = 1;
+	}
+	else
+	{
+		button1State = 0;
+	}
+	
+	int button2State;
+	if (PIND & (1<<PD3))   
+	{
+		button2State = 1;
+	}
+	else
+	{
+		button2State = 0;
+	}
+	
+	printf("Joy Y: %d,\t", (int)get_ADC_data());
+	printf("Joy X: %d,\t", (int)get_ADC_data());
+	printf("Right Slider: %d,\t", (int)get_ADC_data());
+	printf("Left Slider: %d,  \t", (int)get_ADC_data());
+	printf("Right button: %d,\t", button1State);
+	printf("Left Button: %d\n\r", button2State);
+	_delay_ms(1);
+	}
 }

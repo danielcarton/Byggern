@@ -21,6 +21,7 @@ typedef enum {CHANNEL1, CHANNEL2, CHANNEL3, CHANNEL4} channel_t;
 #endif
 
 volatile char *ADC = (int) 0x1400; // Start address for the ADC
+
 volatile char ADC_data;
 
 void adc_init(int *counter){
@@ -31,18 +32,18 @@ void adc_init(int *counter){
 	
 	//INITIALIZE INTERRUPT ON PIN PD3
 
-	// Button input
-	clear_bit(DDRD, PD3);
-	set_bit(PORTD, PD3);	//Set pull-up resistor
-	// Disable global interrupts
-	cli();
-	// Interrupt on falling edge PD3
-	set_bit(MCUCR, ISC11);
-	clear_bit(MCUCR, ISC10);
-	// Enable interrupt on PD3
-	set_bit(GICR,INT1);
-	// Enable global interrupts
-	sei();
+	//// button input
+	//clear_bit(ddrd, pd3);
+	//set_bit(portd, pd3);	//set pull-up resistor
+	//// disable global interrupts
+	//cli();
+	//// interrupt on falling edge pd3
+	//set_bit(mcucr, isc11);
+	//clear_bit(mcucr, isc10);
+	//// enable interrupt on pd3
+	//set_bit(gicr,int1);
+	//// enable global interrupts
+	//sei();
 
 
 }
@@ -53,30 +54,30 @@ ISR(INT1_vect){
 }
 
 char get_ADC_data(void){
-	return ADC_data;
+	return ADC[0x00];
 }
 
 void ADC_start_read(channel_t channel){
 	
 	char data = 0x00;
-	
-	switch (channel) {
-		case CHANNEL1 :
-		data = 0x04;
-		break;
-		case CHANNEL2 :
-		data = 0x05;
-		break;
-		case CHANNEL3 :
-		data = 0x06;
-		break;
-		case CHANNEL4 :
-		data = 0x07;
-		break;
-		default:
-		printf("Not valid channel");
-		return EXIT_FAILURE;
-	}
+	//
+	//switch (channel) {
+		//case CHANNEL1 :
+		//data = 0x04;
+		//break;
+		//case CHANNEL2 :
+		//data = 0x05;
+		//break;
+		//case CHANNEL3 :
+		//data = 0x06;
+		//break;
+		//case CHANNEL4 :
+		//data = 0x07;
+		//break;
+		//default:
+		//printf("Not valid channel");
+		//return EXIT_FAILURE;
+	//}
 	
 	ADC[0x00] = data;
 	
