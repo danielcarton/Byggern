@@ -46,4 +46,6 @@ void OLED_set_brightness(int lvl);
 
 void OLED_print_arrow ( uint8_t row , uint8_t col );
 
+void oled_align_centre(char* title);
+
 #endif /* OLED_CONTROL_H_ */

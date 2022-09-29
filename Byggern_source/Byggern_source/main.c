@@ -58,14 +58,17 @@ int main(){
 	{
 		button3State = 1;
 	}
-	int joyx=10;
+	int joyy=(int)get_ADC_data();
+	int joyx=(int)get_ADC_data();
+	int sliderRight = (int)get_ADC_data();
+	int sliderLeft = (int)get_ADC_data();
 	
-	printf("Joy Y: %d,\t", (int)get_ADC_data());
-	printf("Joy X: %d,\t", (int)get_ADC_data());
-	printf("Right Slider: %d,\t", (int)get_ADC_data());
-	printf("Left Slider: %d,  \t", (int)get_ADC_data());
-	printf("Right button: %d,\t", button1State);
+	printf("Joy Y: %d,\t", joyy);
+	printf("Joy X: %d,\t", joyx);
+	printf("Left Slider: %d,  \t", sliderLeft);
+	printf("Right Slider: %d,\t", sliderRight);
 	printf("Left Button: %d, \t", button2State);
+	printf("Right button: %d,\t", button1State);
 	printf("Joy button: %d\n\r", button3State);
 	_delay_ms(1);
 	OLED_reset();

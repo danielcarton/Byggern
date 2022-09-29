@@ -197,3 +197,7 @@ void oled_printf(char* data, ...){
 	va_end(args);
 	
 }
+
+void oled_align_centre(char* title) {
+	OLED_goto_column(64- fontSize*strlen(title)/2);
+}
