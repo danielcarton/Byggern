@@ -7,6 +7,7 @@
 #include "SRAM_Control.h"
 #include "ADC_control.h"
 #include "OLED_control.h"
+#include "OLED_menu.h"
 
 #define OFFSET 0x1000
 #define F_CPU 4915200
@@ -74,7 +75,8 @@ int main(){
 	OLED_reset();
 	
 	OLED_home();
-	oled_printf("I DONT WANT TO MAKE THE FUCKING MENU");
+	//oled_printf("");
+	main_menu();
 	
 	//for (int row = 0; row < 128; row++)
 	//{

@@ -138,6 +138,12 @@
     <Compile Include="OLED_control.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="OLED_menu.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="OLED_menu.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SRAM_Control.c">
       <SubType>compile</SubType>
     </Compile>

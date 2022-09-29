@@ -8,6 +8,8 @@ main.c
 
 OLED_control.c
 
+OLED_menu.c
+
 SRAM_Control.c
 
 UART_Control.c

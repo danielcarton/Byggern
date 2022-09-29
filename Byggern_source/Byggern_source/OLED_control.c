@@ -139,13 +139,7 @@ void OLED_goto_pos(uint8_t line, uint8_t column ){
 	OLED_goto_column(column);
 }
 
-void OLED_print_at_Pos(char ch){
-	
-}
 
-void OLED_print_string(char* string){
-	
-}
 
 void OLED_set_brightness(int lvl){
 	
