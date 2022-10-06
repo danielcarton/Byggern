@@ -21,10 +21,15 @@ typedef enum {CHANNEL1, CHANNEL2, CHANNEL3, CHANNEL4} channel_t;
 #endif
 
 volatile char *ADC = (int) 0x1400; // Start address for the ADC
+
 volatile int joyy;
 volatile int joyx;
 volatile int sliderRight;
 volatile int sliderLeft;
+
+volatile int button1State;
+volatile int button2State;
+volatile int button3State;
 
 volatile char ADC_data;
 
@@ -33,7 +38,15 @@ ISR (TIMER1_OVF_vect){
 	joyx=ADC[0x00];
 	sliderRight = ADC[0x00];
 	sliderLeft = ADC[0x00];
+	
+	button1State = 0 != (PIND & (1<<PD2)); //Fix factor error, divide by whatever pops up
+	button2State = 0 != (PIND & (1<<PD3));
+	button3State = 1 != (0 != (PIND & (1<<PD5))); 
+	
 	ADC[0x00] = 0x00;
+	_delay_ms(1);
+	
+
 }
 
 void adc_init(int *counter){
