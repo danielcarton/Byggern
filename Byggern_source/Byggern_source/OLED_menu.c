@@ -4,16 +4,12 @@
  * Created: 29.09.2022 13:15:08
  *  Author: tobialie
  */ 
-<<<<<<< Updated upstream
 //
-=======
 
->>>>>>> Stashed changes
 #include <stdlib.h>
 #include <stdint.h>
 #include <avr/io.h>
 #include "OLED_control.h"
-<<<<<<< Updated upstream
 #include "ADC_control.h"
 
 
@@ -21,14 +17,21 @@ int arrow_pos;
 int arrow = 1;
 int flag_up = 0;
 int flag_down = 0;
+int menu;
+int menu_button;
+int button_flag = 1;
 
 void main_menu () {
-	oled_align_centre("Main menu");
-	oled_printf("Main menu");
-	OLED_goto_pos(1,9);
-	oled_printf("Sub menu 1");
-	OLED_goto_pos(2,9);
-	oled_printf("Sub menu 2");
+	if (button3State == 1 || button_flag == 1)
+	{
+		menu_button = arrow;
+		button_flag = 0;
+	}
+	
+	menu_sel(menu_button);
+	//oled_align_centre("Main menu");
+	//oled_printf("Main menu");
+	
 	
 	if (joyy < 200 && (flag_down == 1 || flag_up == 1))
 	{
@@ -83,10 +86,43 @@ void main_menu () {
 	}
 	OLED_print_arrow(arrow, 0);
 	
-=======
+	
+	
+}
 
-void main_menu () {
-	OLED_goto_pos(0, 30);
-	oled_printf("Main menu");
->>>>>>> Stashed changes
+void menu_sel (int menu_choice) {
+	switch (menu_choice) {
+		case 1:
+			oled_align_centre("Main menu");
+			oled_printf("Main menu");
+			OLED_goto_pos(1,9);
+			oled_printf("Play");
+			OLED_goto_pos(2,9);
+			oled_printf("High scores");
+			OLED_goto_pos(3,9);
+			oled_printf("Difficulty");
+			break;
+		case 2:
+			oled_align_centre("Play");
+			oled_printf("Play");
+			break;
+		case 3:
+			oled_align_centre("High scores");
+			oled_printf("High scores");
+			break;
+		case 4:
+			oled_align_centre("Difficulty");
+			oled_printf("Difficulty");
+			break;
+		case 5:
+			menu = 5;
+			break;
+		case 6:
+			menu = 6;
+			break;
+		case 7:
+			menu = 7;
+			break;
+	}
+	
 }
