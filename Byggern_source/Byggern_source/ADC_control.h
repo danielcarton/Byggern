@@ -16,6 +16,10 @@ extern volatile int joyx;
 extern volatile int sliderRight;
 extern volatile int sliderLeft;
 
+extern volatile int button1State;
+extern volatile int button2State;
+extern volatile int button3State;
+
 void adc_init(int *counter);
 char get_ADC_data(void);
 void ADC_start_read(channel_t channel);

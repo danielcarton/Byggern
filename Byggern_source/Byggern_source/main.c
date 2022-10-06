@@ -28,37 +28,6 @@ int main(){
 	while (1)
 	{
 
-
-	int button1State;
-	if (PIND & (1<<PD2))    // see comment #2
-	{
-		button1State = 1;
-	}
-	else
-	{
-		button1State = 0;
-	}
-	
-	int button2State;
-	if (PIND & (1<<PD3))
-	{
-		button2State = 1;
-	}
-	else
-	{
-		button2State = 0;
-	}
-	
-	int button3State;
-	if (PIND & (1<<PD5))
-	{
-		button3State = 0;
-	}
-	else
-	{
-		button3State = 1;
-	}
-
 	
 	printf("Joy Y: %d,\t", joyy);
 	printf("Joy X: %d,\t", joyx);
