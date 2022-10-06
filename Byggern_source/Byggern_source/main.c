@@ -37,11 +37,9 @@ int main(){
 	printf("Left Button: %d, \t", button2State);
 	printf("Right button: %d,\t", button1State);
 	printf("Joy button: %d\n\r", button3State);
-	OLED_reset();
 	
-	OLED_home();
 	//oled_printf("");
-	main_menu();
+	displaymenu();
 	//razzledazzleess
 	//for (int row = 0; row < 128; row++)
 	//{

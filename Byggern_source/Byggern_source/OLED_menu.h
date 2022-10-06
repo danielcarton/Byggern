@@ -10,6 +10,7 @@
 #define OLED_MENU_H_
 
 void main_menu(void);
+void displaymenu(void);
 
 
 
