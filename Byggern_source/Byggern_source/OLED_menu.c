@@ -4,11 +4,16 @@
  * Created: 29.09.2022 13:15:08
  *  Author: tobialie
  */ 
+<<<<<<< Updated upstream
 //
+=======
+
+>>>>>>> Stashed changes
 #include <stdlib.h>
 #include <stdint.h>
 #include <avr/io.h>
 #include "OLED_control.h"
+<<<<<<< Updated upstream
 #include "ADC_control.h"
 
 
@@ -78,4 +83,10 @@ void main_menu () {
 	}
 	OLED_print_arrow(arrow, 0);
 	
+=======
+
+void main_menu () {
+	OLED_goto_pos(0, 30);
+	oled_printf("Main menu");
+>>>>>>> Stashed changes
 }
