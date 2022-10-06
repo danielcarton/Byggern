@@ -21,8 +21,20 @@ typedef enum {CHANNEL1, CHANNEL2, CHANNEL3, CHANNEL4} channel_t;
 #endif
 
 volatile char *ADC = (int) 0x1400; // Start address for the ADC
+volatile int joyy;
+volatile int joyx;
+volatile int sliderRight;
+volatile int sliderLeft;
 
 volatile char ADC_data;
+
+ISR (TIMER1_OVF_vect){
+	joyy=ADC[0x00];
+	joyx=ADC[0x00];
+	sliderRight = ADC[0x00];
+	sliderLeft = ADC[0x00];
+	ADC[0x00] = 0x00;
+}
 
 void adc_init(int *counter){
     TCCR3A = (1 << WGM30) | (1 << WGM31) | (1 << COM3A0);
@@ -30,6 +42,13 @@ void adc_init(int *counter){
     OCR3A = 2; // Define the frequency of the generated PWM signal
     DDRD |= (1 << DDD4); // Configure PD4 as PWM output
 	
+	
+	TCCR1A = 0x00;
+	TCCR1B =  (1<<CS11);
+	TIMSK = (1 << TOIE1);   
+	sei(); 
+	
+	ADC[0x00] = 0x00;
 	//INITIALIZE INTERRUPT ON PIN PD3
 
 	//// button input

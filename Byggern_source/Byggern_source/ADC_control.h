@@ -11,6 +11,11 @@
 
 typedef enum {CHANNEL1, CHANNEL2, CHANNEL3, CHANNEL4} channel_t;
 
+extern volatile int joyy;
+extern volatile int joyx;
+extern volatile int sliderRight;
+extern volatile int sliderLeft;
+
 void adc_init(int *counter);
 char get_ADC_data(void);
 void ADC_start_read(channel_t channel);
