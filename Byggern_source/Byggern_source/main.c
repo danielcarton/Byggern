@@ -19,14 +19,14 @@ int main(){
 	uart_start(MYBURR);
 	fdevopen(&uart_transmit, &uart_recieve);
 	
+	
+	
 	int counter=0;
 	adc_init(counter);
 	OLED_init();
 	
 	while (1)
 	{
-	ADC_start_read(CHANNEL3);
-	_delay_ms(1);
 
 
 	int button1State;
@@ -58,10 +58,7 @@ int main(){
 	{
 		button3State = 1;
 	}
-	int joyy=(int)get_ADC_data();
-	int joyx=(int)get_ADC_data();
-	int sliderRight = (int)get_ADC_data();
-	int sliderLeft = (int)get_ADC_data();
+
 	
 	printf("Joy Y: %d,\t", joyy);
 	printf("Joy X: %d,\t", joyx);
@@ -70,7 +67,6 @@ int main(){
 	printf("Left Button: %d, \t", button2State);
 	printf("Right button: %d,\t", button1State);
 	printf("Joy button: %d\n\r", button3State);
-	_delay_ms(1);
 	OLED_reset();
 	
 	OLED_home();
