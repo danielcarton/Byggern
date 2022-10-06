@@ -73,7 +73,7 @@ int main(){
 	OLED_home();
 	//oled_printf("");
 	main_menu();
-	
+	//razzledazzle
 	//for (int row = 0; row < 128; row++)
 	//{
 		//for (int lin = 0; lin < 8; lin++)
