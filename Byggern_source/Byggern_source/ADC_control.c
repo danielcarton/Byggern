@@ -13,8 +13,6 @@
 #define loop_until_bit_is_clear( reg, bit ) while( test_bit( reg, bit ) )
 #define toggle_bit(reg, bit) (reg ^= (1 << bit))
 
-
-typedef enum {CHANNEL1, CHANNEL2, CHANNEL3, CHANNEL4} channel_t;
 	
 #ifndef ADC_ADDRESS
 #define ADC_ADDRESS 0x1400
@@ -30,24 +28,42 @@ volatile int sliderLeft;
 volatile int button1State;
 volatile int button2State;
 volatile int button3State;
+uint64_t intermittenty=0;
+uint64_t intermittentx=0;
+int middleyjoyy;
+int middleyjoyx;
 
 volatile char ADC_data;
 
 ISR (TIMER1_OVF_vect){
+	ADC[0x00] = 0x00;
+	_delay_ms(1);
 	joyy=ADC[0x00];
 	joyx=ADC[0x00];
 	sliderRight = ADC[0x00];
 	sliderLeft = ADC[0x00];
 	
-	button1State = 0 != (PIND & (1<<PD2)); //Fix factor error, divide by whatever pops up
+	button1State = 0 != (PIND & (1<<PD2)); 
 	button2State = 0 != (PIND & (1<<PD3));
 	button3State = 1 != (0 != (PIND & (1<<PD5))); 
 	
-	ADC[0x00] = 0x00;
-	_delay_ms(1);
 	
 
 }
+
+
+void joy_calibrate(void){
+	for (int i = 0; i<1000; i++)
+	{
+		intermittentx += joyx;
+		intermittenty += joyy;
+		_delay_ms(1);
+	}
+	middleyjoyx = intermittentx/1000;
+	middleyjoyy = intermittenty/1000;
+	printf("\n\n%d %d \n", middleyjoyx, middleyjoyy);
+}
+
 
 void adc_init(int *counter){
     TCCR3A = (1 << WGM30) | (1 << WGM31) | (1 << COM3A0);
@@ -89,28 +105,9 @@ char get_ADC_data(void){
 	return ADC[0x00];
 }
 
-void ADC_start_read(channel_t channel){
+void ADC_start_read(void){
 	
 	char data = 0x00;
-	//
-	//switch (channel) {
-		//case CHANNEL1 :
-		//data = 0x04;
-		//break;
-		//case CHANNEL2 :
-		//data = 0x05;
-		//break;
-		//case CHANNEL3 :
-		//data = 0x06;
-		//break;
-		//case CHANNEL4 :
-		//data = 0x07;
-		//break;
-		//default:
-		//printf("Not valid channel");
-		//return EXIT_FAILURE;
-	//}
-	
 	ADC[0x00] = data;
 	
 }

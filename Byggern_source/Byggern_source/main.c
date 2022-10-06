@@ -25,6 +25,7 @@ int main(){
 	int counter=0;
 	adc_init(counter);
 	OLED_init();
+	joy_calibrate();
 	
 	while (1)
 	{
