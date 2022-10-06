@@ -25,14 +25,13 @@ int main(){
 	int counter=0;
 	adc_init(counter);
 	OLED_init();
-	joy_calibrate();
 	
 	while (1)
 	{
 
 	
-	printf("Joy Y: %d,\t", joyy);
-	printf("Joy X: %d,\t", joyx);
+	printf("Joy Y: %d,\t", joyyPercent);
+	printf("Joy X: %d,\t", joyxPercent);
 	printf("Left Slider: %d,  \t", sliderLeft);
 	printf("Right Slider: %d,\t", sliderRight);
 	printf("Left Button: %d, \t", button2State);

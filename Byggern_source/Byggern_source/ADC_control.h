@@ -19,9 +19,11 @@ extern volatile int button1State;
 extern volatile int button2State;
 extern volatile int button3State;
 
+extern volatile int joyxPercent;
+extern volatile int joyyPercent;
+
 void adc_init(int *counter);
 char get_ADC_data(void);
 void ADC_start_read(void);
-void joy_calibrate(void);
 
 #endif /* ADC_CONTROL_H_ */

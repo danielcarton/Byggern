@@ -28,10 +28,25 @@ volatile int sliderLeft;
 volatile int button1State;
 volatile int button2State;
 volatile int button3State;
-uint64_t intermittenty=0;
-uint64_t intermittentx=0;
+
+int intermittenty=0;
+int intermittentx=0;
+
 int middleyjoyy;
 int middleyjoyx;
+
+volatile int joyxPercent;
+volatile int joyyPercent;
+
+
+float posXfactor;
+float posXadd;
+float negXfactor;
+float negXadd;
+float posYfactor;
+float posYadd;
+float negYfactor;
+float negYadd;
 
 volatile char ADC_data;
 
@@ -47,22 +62,35 @@ ISR (TIMER1_OVF_vect){
 	button2State = 0 != (PIND & (1<<PD3));
 	button3State = 1 != (0 != (PIND & (1<<PD5))); 
 	
-	
-
-}
-
-
-void joy_calibrate(void){
-	for (int i = 0; i<1000; i++)
+	if (joyy < middleyjoyy)
 	{
-		intermittentx += joyx;
-		intermittenty += joyy;
-		_delay_ms(1);
+		joyyPercent = joyy*negYfactor/100+negYadd;
 	}
-	middleyjoyx = intermittentx/1000;
-	middleyjoyy = intermittenty/1000;
-	printf("\n\n%d %d \n", middleyjoyx, middleyjoyy);
+	if (joyy >= middleyjoyy)
+	{
+		joyyPercent = joyy*posYfactor/100+posYadd;
+	}
+	if (joyx < middleyjoyx)
+	{
+		joyxPercent = joyx*negXfactor/100+negXadd;
+	}
+	if (joyx >= middleyjoyx)
+	{
+		joyxPercent = joyx*posXfactor/100+posXadd;
+	}	
+	if (joyxPercent > -5 && joyxPercent < 5)
+	{
+		joyxPercent = 0;
+	}
+	if (joyyPercent > -5 && joyyPercent < 5)
+	{
+		joyyPercent = 0;
+	}
+
 }
+
+
+
 
 
 void adc_init(int *counter){
@@ -71,6 +99,37 @@ void adc_init(int *counter){
     OCR3A = 2; // Define the frequency of the generated PWM signal
     DDRD |= (1 << DDD4); // Configure PD4 as PWM output
 	
+	
+	_delay_ms(1000);
+	int times = 0;
+	int ignore;
+	for (int i = 0; i<100; i++)
+	{
+		ADC[0x00] = 0x00;
+		_delay_ms(1);
+		intermittentx = intermittentx + ADC[0x00];
+		intermittenty = intermittenty + ADC[0x00];
+		ignore = ADC[0x00];
+		ignore = ADC[0x00];
+		_delay_ms(1);
+		times++;
+	}
+	middleyjoyx = intermittentx/times;
+	middleyjoyy = intermittenty/times;
+	printf("\n\n\r %d %d \n", middleyjoyx, middleyjoyy);
+	
+	posXfactor = (10000)/(255-middleyjoyx);
+	posXadd = -1*(100*middleyjoyx)/(255-middleyjoyx);
+	negXfactor = (10000/middleyjoyx);
+	negXadd = -1*(middleyjoyx*100)/(middleyjoyx);
+	posYfactor = (10000)/(255-middleyjoyy);
+	posYadd= -1*(100*middleyjoyy)/(255-middleyjoyy);
+	negYfactor = (10000/middleyjoyy);
+	negYadd = -1*(middleyjoyy*100)/(middleyjoyy);
+	printf("Pos x: %d*x + %d\n\r", (int)(posXfactor*1000), (int)posXadd);
+	printf("Neg x: %d*x + %d\n\r", (int)(negXfactor*1000), (int)negXadd);
+	printf("Pos y: %d*y + %d\n\r", (int)(posYfactor*1000), (int)posYadd);
+	printf("Neg y: %d*y + %d\n\r", (int)(negYfactor*1000), (int)negYadd);
 	
 	TCCR1A = 0x00;
 	TCCR1B =  (1<<CS11);
