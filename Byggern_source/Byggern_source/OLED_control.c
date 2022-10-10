@@ -124,6 +124,24 @@ void OLED_clear_line(uint8_t line){
 	OLED_goto_line(line);
 }
 
+void OLED_clear_char(uint8_t line, uint8_t column){
+	OLED_goto_pos(line, column);
+	for(uint8_t i = 0; i < 8; i++){
+		OLED_Write_Data(0x00);
+	}
+}
+
+void OLED_clear_arrow(){
+	for (uint8_t row=0; row<8; row++)
+	{
+		OLED_goto_pos(row, 0);
+		for(uint8_t i = 0; i < 8; i++){
+			OLED_Write_Data(0x00);
+		}
+	}
+	
+}
+
 
 void OLED_fill_line(uint8_t line){
 	OLED_goto_pos(line, 0);

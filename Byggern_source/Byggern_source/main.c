@@ -25,6 +25,7 @@ int main(){
 	int counter=0;
 	adc_init(counter);
 	OLED_init();
+	OLED_reset();
 	
 	while (1)
 	{
@@ -39,7 +40,8 @@ int main(){
 	printf("Joy button: %d\n\r", button3State);
 	
 	//oled_printf("");
-	displaymenu();
+	
+	main_menu();
 	//razzledazzleess
 	//for (int row = 0; row < 128; row++)
 	//{
