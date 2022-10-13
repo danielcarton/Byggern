@@ -20,8 +20,33 @@ void CAN_module_deactivate_cs(void){
 }
 
 
-void CAN_module_init(){
+void CAN_module_init(uint8_t mode){
+	uint8_t val;
 	SPI_Init();
+	
+	CAN_module_reset();
+	
+	val = CAN_module_read(MCP_CANSTAT);
+	uint8_t mode_bits = (val & MODE_MASK);
+	if(mode_bits != MODE_CONFIG){
+		printf("MCP2515 is NOT in Configuration mode after reset! Its config bits are %x\n", mode_bits);
+		return 1;
+	}
+	
+	CAN_module_write(MCP_CANCTRL, mode)¨;
+	
+	val = CAN_module_read(MCP_CANSTAT);
+	mode_bits = (val & MODE_MASK);
+	
+	if(mode_bits != mode){
+		
+		printf("MCP2515 is NOT in correct mode after reset! Its config bits are %x\n", mode_bits);
+		printf("\n!\n");
+		return 1;
+	}
+	
+	
+	return 0;
 }
 
 uint8_t CAN_module_read(uint8_t addr){
