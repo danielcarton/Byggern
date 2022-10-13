@@ -70,7 +70,7 @@ void CAN_module_reset(void){
 	CAN_module_activate_cs();
 	SPI_Transmit(MCP_RESET);
 	CAN_module_deactivate_cs();
-	_delay_ms(5); //change if timing is off
+	_delay_ms(10); //change if timing is off
 }
 
 void CAN_module_test(void){
@@ -84,24 +84,25 @@ void CAN_module_init(uint8_t mode){
 	CAN_module_reset();
 	
 	val = CAN_module_read(MCP_CANSTAT);
-	//uint8_t mode_bits = (val & MODE_MASK);
-	//if(mode_bits != MODE_CONFIG){
-	//printf("MCP2515 is NOT in Configuration mode after reset! Its config bits are %x\n", mode_bits);
-	////return(1);
-	//}
-	//
-	//CAN_module_write(MCP_CANCTRL, mode);
-	//
-	//val = CAN_module_read(MCP_CANSTAT);
-	//mode_bits = (val & MODE_MASK);
-	//
-	//if(mode_bits != mode){
-	//
-	//printf("MCP2515 is NOT in correct mode after reset! Its config bits are %x\n", mode_bits);
-	//printf("\n!\n");
-	////return(1);
-	//}
-	//
+	printf("%x\n\r", val);
+	uint8_t mode_bits = (val & MODE_MASK);
+	if(mode_bits != MODE_CONFIG){
+	printf("MCP2515 is NOT in Configuration mode after reset! Its config bits are %x\n", mode_bits);
+	//return(1);
+	}
+	
+	CAN_module_write(MCP_CANCTRL, mode);
+	
+	val = CAN_module_read(MCP_CANSTAT);
+	mode_bits = (val & MODE_MASK);
+	
+	if(mode_bits != mode){
+	
+	printf("MCP2515 is NOT in correct mode after reset! Its config bits are %x\n", mode_bits);
+	printf("\n!\n");
+	//return(1);
+	}
+	
 	
 	//return(0);
 }
