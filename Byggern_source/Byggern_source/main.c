@@ -19,17 +19,24 @@ int main(){
 	MCUCR = (1<<SRE);
 	uart_start(MYBURR);
 	fdevopen(&uart_transmit, &uart_recieve);
-	
-	
-	
-	int counter=0;
-	adc_init(counter);
+	CAN_module_init(MODE_LOOPBACK);
 	OLED_init();
+	
+<<<<<<< Updated upstream
+	
+=======
+	adc_init(0);
+>>>>>>> Stashed changes
+	
 	OLED_reset();
 	
 	while (1)
 	{
+<<<<<<< Updated upstream
 
+=======
+	
+>>>>>>> Stashed changes
 	
 	printf("Joy Y: %d,\t", joyyPercent);
 	printf("Joy X: %d,\t", joyxPercent);

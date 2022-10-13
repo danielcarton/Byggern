@@ -16,10 +16,7 @@ int arrow_pos;
 int arrow = 1;
 int flag_up = 0;
 int flag_down = 0;
-//int menu_main = 1;
-//int menu_button;
-//int button_flag = 1;
-//int oled_update = 1;
+int button_flag = 0;
 
 void main_menu()
 {
@@ -33,6 +30,11 @@ void main_menu()
     oled_printf("High scores");
     OLED_goto_pos(3, 9);
     oled_printf("Difficulty");
+	
+	if (button3State == 0)
+	{
+		button_flag = 0;
+	}
 
     // Use the joystick to navigate the menus, the joystick needs to be above or below a certain treshold to update the arrow and also to only be activated once on every joystick move
     if (joyy < 200 && (flag_down == 1 || flag_up == 1))
@@ -72,8 +74,9 @@ void main_menu()
     {
     case 1:
         arrow = 1;
-        if (button3State == 1)
+        if (button3State == 1 && button_flag == 0)
         {
+			button_flag = 1;	
             OLED_reset();
             // Only run the play_menu, when exiting the play menu break the loop (might have to break the loop with flag instead of break;)
          
@@ -126,6 +129,11 @@ void play_menu(void)
 {
 	while(1)
 	{
+		if (button3State == 0)
+		{
+			button_flag = 0;
+		}
+		
 		OLED_home();
 		oled_align_centre("Play");
 		oled_printf("Play");
@@ -192,6 +200,7 @@ void play_menu(void)
 
 		if (button3State == 1 && arrow == 7)
 		{
+			button_flag = 1;
 			arrow = 1;
 			OLED_reset();
 			
@@ -206,6 +215,10 @@ void hs_menu(void)
 	arrow_pos = 1;
 	while(1)
 	{
+		if (button3State == 0)
+		{
+			button_flag = 0;
+		}
 		OLED_home();
 		oled_align_centre("High scores");
 		oled_printf("High scores");
@@ -272,6 +285,7 @@ void hs_menu(void)
 
 		if (button3State == 1 && arrow == 7)
 		{
+			button_flag = 1;
 			arrow = 1;
 			OLED_reset();
 			
@@ -286,6 +300,10 @@ void diff_menu(void)
 	arrow_pos = 1;
 	while(1)
 	{
+		if (button3State == 0)
+		{
+			button_flag = 0;
+		}
 		OLED_home();
 		oled_align_centre("Difficulty");
 		oled_printf("Difficulty");
@@ -352,6 +370,7 @@ void diff_menu(void)
 
 		if (button3State == 1 && arrow == 7)
 		{
+			button_flag = 1;
 			arrow = 1;
 			OLED_reset();
 			
