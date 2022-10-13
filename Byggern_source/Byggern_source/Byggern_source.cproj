@@ -126,6 +126,21 @@
     <Compile Include="ADC_control.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="CAN_controller.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN_controller.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN_module_controller.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN_module_controller.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CAN_module_registers.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="fonts.h">
       <SubType>compile</SubType>
     </Compile>
@@ -142,6 +157,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="OLED_menu.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPI_control.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPI_control.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="SRAM_Control.c">
