@@ -93,14 +93,14 @@ ISR (TIMER1_OVF_vect){
 
 
 
-void adc_init(int *counter){
+void adc_init(){
     TCCR3A = (1 << WGM30) | (1 << WGM31) | (1 << COM3A0);
     TCCR3B = (1 << CS30) | (1 << WGM33);
     OCR3A = 2; // Define the frequency of the generated PWM signal
     DDRD |= (1 << DDD4); // Configure PD4 as PWM output
 	
 	
-	_delay_ms(1000);
+	_delay_ms(10);
 	int times = 0;
 	int ignore;
 	for (int i = 0; i<100; i++)

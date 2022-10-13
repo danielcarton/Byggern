@@ -22,7 +22,7 @@ extern volatile int button3State;
 extern volatile int joyxPercent;
 extern volatile int joyyPercent;
 
-void adc_init(int *counter);
+void adc_init();
 char get_ADC_data(void);
 void ADC_start_read(void);
 

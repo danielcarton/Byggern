@@ -8,3 +8,11 @@
 void CAN_init(void){
 	CAN_module_init();
 }
+
+void CAN_send_message(){
+	
+}
+
+char CAN_recieve_message(){
+	
+}

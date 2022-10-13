@@ -24,8 +24,7 @@ int main(){
 	
 	//Comment
 	
-	int counter=0;
-	adc_init(counter);
+	adc_init();
 	OLED_init();
 	
 	while (1)
