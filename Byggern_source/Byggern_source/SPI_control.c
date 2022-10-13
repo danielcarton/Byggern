@@ -55,5 +55,6 @@ void SPI_test(uint8_t Test_data){
 	PORTB = (0<<PB4);
 	SPI_Transmit(Test_data);
 	printf("Test Data Transmitted!\n\r");
+	printf("%c\n\r", SPDR);
 	PORTB = (1<<PB4);
 }
