@@ -8,6 +8,8 @@
 #include "ADC_control.h"
 #include "OLED_control.h"
 #include "OLED_menu.h"
+#include "CAN_module_controller.h"
+#include "CAN_module_registers.h"
 
 #define OFFSET 0x1000
 #define F_CPU 4915200
@@ -20,7 +22,7 @@ int main(){
 	uart_start(MYBURR);
 	fdevopen(&uart_transmit, &uart_recieve);
 	
-	
+	//Comment
 	
 	int counter=0;
 	adc_init(counter);
@@ -28,7 +30,7 @@ int main(){
 	
 	while (1)
 	{
-
+	CAN_module_init(MODE_LOOPBACK);
 	
 	printf("Joy Y: %d,\t", joyyPercent);
 	printf("Joy X: %d,\t", joyxPercent);
