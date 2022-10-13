@@ -28,3 +28,30 @@ void SPI_Transmit(char Data)
 	while(!(SPSR & (1<<SPIF)))
 	;
 }
+
+
+char SPI_Recieve(void)
+{
+	/* Start transmission */
+	SPDR = 0x00;
+	/* Wait for transmission complete */
+	while(!(SPSR & (1<<SPIF)))
+	;
+	return(SPDR);
+}
+
+void SPI_test(uint8_t Test_data){
+	printf("Testing SPI...\n\r");
+	printf("5\n\r");
+	_delay_ms(1000);
+	printf("4\n\r");
+	_delay_ms(1000);
+	printf("3\n\r");
+	_delay_ms(1000);
+	printf("2\n\r");
+	_delay_ms(1000);
+	printf("1\n\r");
+	_delay_ms(1000);
+	SPI_Transmit(Test_data);
+	printf("Test Data Transmitted!\n\r");
+}

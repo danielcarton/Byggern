@@ -14,5 +14,9 @@ void SPI_Init(void);
 
 void SPI_Transmit(char Data);
 
+char SPI_Recieve(void);
+
+void SPI_test(uint8_t Test_data);
+
 
 #endif /* SPI_CONTROL_H_ */
