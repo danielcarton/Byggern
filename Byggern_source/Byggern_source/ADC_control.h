@@ -15,9 +15,9 @@ extern volatile int joyx;
 extern volatile int sliderRight;
 extern volatile int sliderLeft;
 
-extern volatile int button1State;
-extern volatile int button2State;
-extern volatile int button3State;
+extern volatile uint8_t button1State;
+extern volatile uint8_t button2State;
+extern volatile uint8_t button3State;
 
 extern volatile int joyxPercent;
 extern volatile int joyyPercent;

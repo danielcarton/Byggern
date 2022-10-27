@@ -25,9 +25,9 @@ volatile int joyx;
 volatile int sliderRight;
 volatile int sliderLeft;
 
-volatile int button1State;
-volatile int button2State;
-volatile int button3State;
+volatile uint8_t button1State;
+volatile uint8_t button2State;
+volatile uint8_t button3State;
 
 int intermittenty=0;
 int intermittentx=0;
@@ -137,20 +137,6 @@ void adc_init(){
 	sei(); 
 	
 	ADC[0x00] = 0x00;
-	//INITIALIZE INTERRUPT ON PIN PD3
-
-	//// button input
-	//clear_bit(ddrd, pd3);
-	//set_bit(portd, pd3);	//set pull-up resistor
-	//// disable global interrupts
-	//cli();
-	//// interrupt on falling edge pd3
-	//set_bit(mcucr, isc11);
-	//clear_bit(mcucr, isc10);
-	//// enable interrupt on pd3
-	//set_bit(gicr,int1);
-	//// enable global interrupts
-	//sei();
 
 
 }
