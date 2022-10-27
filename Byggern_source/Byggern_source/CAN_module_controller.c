@@ -77,7 +77,7 @@ void CAN_module_test(void){
 	
 }
 
-void CAN_module_init(uint8_t mode){
+void CAN_module_init(){
 	uint8_t val;
 	SPI_Init();
 	
@@ -90,12 +90,12 @@ void CAN_module_init(uint8_t mode){
 	//return(1);
 	}
 	
-	CAN_module_write(MCP_CANCTRL, mode);
+	CAN_module_write(MCP_CANCTRL, MODE_LOOPBACK);
 	
 	val = CAN_module_read(MCP_CANSTAT);
 	printf("%x\n\r", val);
 	mode_bits = (val & MODE_MASK);
-	if(mode_bits != mode){
+	if(mode_bits != MODE_LOOPBACK){
 	
 	printf("MCP2515 is NOT in correct mode after reset! Its config bits are %x\n\r", mode_bits);
 	printf("\n!\n");

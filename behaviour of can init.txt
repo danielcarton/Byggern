@@ -1,0 +1,19 @@
+green:	SO
+orange: SI
+
+1. 	send 	MCP_RESET	C0 11000000
+1. 	wait 	10ms		
+
+2. 	sent 	MCP_READ	03 00000011
+2. 	send 	MCP_CANSTAT	0E 00001110
+2. 	send 	0x00		00 00000000
+2. 	recieve can status 	80 10000000
+
+3. 	send MCP_WRITE		02 00000010
+3. 	send MCP_CANCTRL	0F 00001111
+3. 	send LOOPBACK_MODE
+
+4. 	sent 	MCP_READ
+4. 	send 	MCP_CANSTAT
+4. 	send 	0x00
+4. 	recieve can status
