@@ -18,6 +18,7 @@ int flag_up = 0;
 int flag_down = 0;
 int button_flag = 0;
 
+
 void main_menu()
 {
     // Run right after bootup after a oled_reset() to clear screen
@@ -76,7 +77,7 @@ void main_menu()
         arrow = 1;
         if (button3State == 1 && button_flag == 0)
         {
-			button_flag = 1;	
+			button_flag = 1;
             OLED_reset();
             // Only run the play_menu, when exiting the play menu break the loop (might have to break the loop with flag instead of break;)
          
@@ -200,7 +201,6 @@ void play_menu(void)
 
 		if (button3State == 1 && arrow == 7)
 		{
-			button_flag = 1;
 			arrow = 1;
 			OLED_reset();
 			
@@ -213,12 +213,12 @@ void play_menu(void)
 void hs_menu(void)
 {
 	arrow_pos = 1;
+	if (button3State == 0)
+	{
+		button_flag = 0;
+	}
 	while(1)
 	{
-		if (button3State == 0)
-		{
-			button_flag = 0;
-		}
 		OLED_home();
 		oled_align_centre("High scores");
 		oled_printf("High scores");
@@ -285,7 +285,6 @@ void hs_menu(void)
 
 		if (button3State == 1 && arrow == 7)
 		{
-			button_flag = 1;
 			arrow = 1;
 			OLED_reset();
 			
@@ -298,12 +297,12 @@ void hs_menu(void)
 void diff_menu(void)
 {
 	arrow_pos = 1;
+	if (button3State == 0)
+	{
+		button_flag = 0;
+	}
 	while(1)
 	{
-		if (button3State == 0)
-		{
-			button_flag = 0;
-		}
 		OLED_home();
 		oled_align_centre("Difficulty");
 		oled_printf("Difficulty");
@@ -370,7 +369,6 @@ void diff_menu(void)
 
 		if (button3State == 1 && arrow == 7)
 		{
-			button_flag = 1;
 			arrow = 1;
 			OLED_reset();
 			
