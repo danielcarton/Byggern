@@ -17,12 +17,13 @@ volatile uint8_t message_interrupt_flag=0;
 
 ISR(INT0_vect){
 	message_interrupt_flag=1;
+	printf("Flag");
 }
 
 void CAN_init(void){
 	CAN_module_init();
 	cli();
-	MCUCR = (1<< ISC01)| (0<<ISC00);
+	MCUCR |= 3;
 	GICR = (1<< INT0);
 	sei();
 	
@@ -44,19 +45,13 @@ uint8_t CAN_message_recieved(void){
 
 void CAN_send_message(CAN_message_struct* message){
 	//load tx0 buffer with data
-	printf("ID: %x%x, DLC: %x, Data[8]: %x\n\r", message->message_id[0], message->message_id[1], message->data_length_code, message->data[6]);
-	uint8_t IDH = message->message_id[1]<<5;
-	_delay_ms(10);
+	//printf("ID: %x%x, DLC: %x, Data[8]: %x\n\r", message->message_id[0], message->message_id[1], message->data_length_code, message->data[6]);
 	CAN_module_write(MCP_TXB0CTRL + 0x01, message->message_id[0]);
-	_delay_ms(10);
 	CAN_module_write(MCP_TXB0CTRL + 0x02, message->message_id[1]<<5);
-	_delay_ms(10);
 	CAN_module_write(MCP_TXB0CTRL + 0x05, message->data_length_code);
-	_delay_ms(10);
 	for (uint8_t i = 0; i < 8; i++)
 	{
 		CAN_module_write(MCP_TXB0CTRL+0x06+i, message->data[i]);
-		_delay_ms(1);
 	}
 	//request to send
 	_delay_ms(10);
@@ -87,18 +82,18 @@ CAN_message_struct CAN_recieve_message(void){
 	return(TempMessage);
 }
 
-//void CAN_test(uint8_t test){
-	//CAN_message_struct temp;
-	//temp.message_id[0]=0xff;
-	//temp.message_id[1]=0x01;
-	//temp.data_length_code=0x0f;
-	//temp.data[0]=test;
-	//for (int i = 0; i<8; i++)
-	//{
-		//temp.data[i] = test;
-	//}
-	//CAN_send_message(&temp);
-	//_delay_ms(10);
-	//CAN_message_struct Recieved = CAN_recieve_message();
-	//printf("ID: %x%x, DLC: %x, Data[8]: %x", Recieved.message_id[0], Recieved.message_id[1]>>5, Recieved.data_length_code, Recieved.data[7]);
-//}
+void CAN_test(uint8_t test){
+	CAN_message_struct temp;
+	temp.message_id[0]=0xff;
+	temp.message_id[1]=0x01;
+	temp.data_length_code=0x0f;
+	temp.data[0]=test;
+	for (int i = 0; i<8; i++)
+	{
+		temp.data[i] = test;
+	}
+	CAN_send_message(&temp);
+	_delay_ms(10);
+	CAN_message_struct Recieved = CAN_recieve_message();
+	printf("ID: %x%x, DLC: %x, Data[8]: %x", Recieved.message_id[0], Recieved.message_id[1]>>5, Recieved.data_length_code, Recieved.data[7]);
+}

@@ -41,10 +41,15 @@ Lower PWM bound: 2365	(Plus a little added)
 Upper PWM bound: 5510	(Plus a little subtracted)
 */
 uint8_t PWM_set(uint16_t dutycycle){
-	if (dutycycle > 2365 && dutycycle < 5510)
+	if (dutycycle >= 2365 && dutycycle <= 5510)
 	{
 		REG_PWM_CDTY6 = dutycycle;
 		return(1);
 	}
 	return(0);
+}
+
+uint16_t joy_to_PWM(uint8_t joyval){
+	float duty = 15.725*(float)joyval+2365;
+	return((uint16_t)duty);
 }
