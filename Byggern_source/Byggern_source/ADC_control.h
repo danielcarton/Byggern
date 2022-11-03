@@ -5,7 +5,6 @@
  *  Author: danie
  */ 
 
-
 #ifndef ADC_CONTROL_H_
 #define ADC_CONTROL_H_
 

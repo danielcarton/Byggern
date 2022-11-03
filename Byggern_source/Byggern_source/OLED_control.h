@@ -23,6 +23,10 @@ int oled_put_char(unsigned char c);
 
 void oled_printf(char* data, ...);
 
+void OLED_clear_arrow();
+
+void OLED_clear_char(uint8_t line, uint8_t column);
+
 void OLED_reset(void);
 
 void OLED_home(void);
