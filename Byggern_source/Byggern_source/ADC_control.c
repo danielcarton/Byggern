@@ -13,7 +13,7 @@
 #define loop_until_bit_is_clear( reg, bit ) while( test_bit( reg, bit ) )
 #define toggle_bit(reg, bit) (reg ^= (1 << bit))
 
-
+	
 #ifndef ADC_ADDRESS
 #define ADC_ADDRESS 0x1400
 #endif
@@ -58,9 +58,9 @@ ISR (TIMER1_OVF_vect){
 	sliderRight = ADC[0x00];
 	sliderLeft = ADC[0x00];
 	
-	button1State = 0 != (PIND & (1<<PD2));
+	button1State = 0 != (PIND & (1<<PD2)); 
 	button2State = 0 != (PIND & (1<<PD3));
-	button3State = 1 != (0 != (PIND & (1<<PD5)));
+	button3State = 1 != (0 != (PIND & (1<<PD5))); 
 	
 	if (joyy < middleyjoyy)
 	{
@@ -77,7 +77,7 @@ ISR (TIMER1_OVF_vect){
 	if (joyx >= middleyjoyx)
 	{
 		joyxPercent = joyx*posXfactor/100+posXadd;
-	}
+	}	
 	if (joyxPercent > -5 && joyxPercent < 5)
 	{
 		joyxPercent = 0;
@@ -93,14 +93,14 @@ ISR (TIMER1_OVF_vect){
 
 
 
-void adc_init(int *counter){
-	TCCR3A = (1 << WGM30) | (1 << WGM31) | (1 << COM3A0);
-	TCCR3B = (1 << CS30) | (1 << WGM33);
-	OCR3A = 2; // Define the frequency of the generated PWM signal
-	DDRD |= (1 << DDD4); // Configure PD4 as PWM output
+void adc_init(){
+    TCCR3A = (1 << WGM30) | (1 << WGM31) | (1 << COM3A0);
+    TCCR3B = (1 << CS30) | (1 << WGM33);
+    OCR3A = 2; // Define the frequency of the generated PWM signal
+    DDRD |= (1 << DDD4); // Configure PD4 as PWM output
 	
 	
-	_delay_ms(1000);
+	_delay_ms(10);
 	int times = 0;
 	int ignore;
 	for (int i = 0; i<100; i++)
@@ -133,8 +133,8 @@ void adc_init(int *counter){
 	
 	TCCR1A = 0x00;
 	TCCR1B =  (1<<CS11);
-	TIMSK = (1 << TOIE1);
-	sei();
+	TIMSK = (1 << TOIE1);   
+	sei(); 
 	
 	ADC[0x00] = 0x00;
 	//INITIALIZE INTERRUPT ON PIN PD3
