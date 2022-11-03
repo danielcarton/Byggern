@@ -45,19 +45,13 @@ uint8_t CAN_message_recieved(void){
 
 void CAN_send_message(CAN_message_struct* message){
 	//load tx0 buffer with data
-	printf("ID: %x%x, DLC: %x, Data[8]: %x\n\r", message->message_id[0], message->message_id[1], message->data_length_code, message->data[6]);
-	uint8_t IDH = message->message_id[1]<<5;
-	_delay_ms(10);
+	//printf("ID: %x%x, DLC: %x, Data[8]: %x\n\r", message->message_id[0], message->message_id[1], message->data_length_code, message->data[6]);
 	CAN_module_write(MCP_TXB0CTRL + 0x01, message->message_id[0]);
-	_delay_ms(10);
 	CAN_module_write(MCP_TXB0CTRL + 0x02, message->message_id[1]<<5);
-	_delay_ms(10);
 	CAN_module_write(MCP_TXB0CTRL + 0x05, message->data_length_code);
-	_delay_ms(10);
 	for (uint8_t i = 0; i < 8; i++)
 	{
 		CAN_module_write(MCP_TXB0CTRL+0x06+i, message->data[i]);
-		_delay_ms(1);
 	}
 	//request to send
 	_delay_ms(10);

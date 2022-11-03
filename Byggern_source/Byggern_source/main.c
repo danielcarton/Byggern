@@ -32,8 +32,8 @@ int main(){
 	
 	while (1)
 	{
-	message.message_id[0] = 1;
-	message.message_id[1] = 1;
+	message.message_id[0] = 0xFF;
+	message.message_id[1] = 0xFF;
 	message.data_length_code = 7;
 	message.data[0]=(uint8_t)joyyPercent+100;
 	message.data[1]=(uint8_t)joyxPercent+100;
@@ -43,6 +43,7 @@ int main(){
 	message.data[5]=button3State;
 	message.data[6]=button2State;
 	CAN_send_message(&message);
+	_delay_ms(1000);
 	
 	
 	printf("Joy Y: %d,\t", joyyPercent);

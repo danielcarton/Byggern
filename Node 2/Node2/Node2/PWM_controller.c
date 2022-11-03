@@ -31,7 +31,7 @@ void PWM_init(void){
     REG_PWM_CMR6 = PWM_CMR_CPRE_CLKA;						// Left-align the PWM signal
     REG_PWM_CMR6 = (PWM_CMR_CPRE_MCK_DIV_32 | PWM_CMR_CPOL);
     REG_PWM_CPRD6 = PWM_PERIOD;
-    REG_PWM_CDTY6 = 3000;
+    REG_PWM_CDTY6 = 5510;
     REG_PWM_ENA = PWM_ENA_CHID6; 
 }
 
@@ -41,10 +41,15 @@ Lower PWM bound: 2365	(Plus a little added)
 Upper PWM bound: 5510	(Plus a little subtracted)
 */
 uint8_t PWM_set(uint16_t dutycycle){
-	if (dutycycle > 2365 && dutycycle < 5510)
+	if (dutycycle >= 2365 && dutycycle <= 5510)
 	{
 		REG_PWM_CDTY6 = dutycycle;
 		return(1);
 	}
 	return(0);
+}
+
+uint16_t joy_to_PWM(uint8_t joyval){
+	float duty = 15.725*(float)joyval+2365;
+	return((uint16_t)duty);
 }

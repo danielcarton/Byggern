@@ -35,9 +35,13 @@ int main(void)
 		can_receive(msg, 0);
 		for (uint8_t i = 0; i <  8 /*message.data_length*/; i++)
 		{
-			//printf("Data[%d]: %x ", i, msg->data[i]);
-	}
-	//printf("\n\r");
+			//printf("Data[%d]: %d\t", i, msg->data[i]);
+		}
+		//printf("\n\r");
+		uint8_t duty = joy_to_PWM(message.data[0]);
+		PWM_set(duty);
+		printf("Joyy: %d, Duty: %d \n\r", message.data[0], duty);
+		
 		
     }
 }

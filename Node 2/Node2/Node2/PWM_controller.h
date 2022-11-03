@@ -20,4 +20,6 @@ Upper PWM bound: 5510	(Plus a little subtracted)
 */
 uint8_t PWM_set(uint16_t dutycycle);
 
+uint8_t joy_to_PWM(uint8_t joyval);
+
 #endif /* PWM_CONTROLLER_H_ */
