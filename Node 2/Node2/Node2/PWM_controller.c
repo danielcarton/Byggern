@@ -31,7 +31,7 @@ void PWM_init(void){
     REG_PWM_CMR6 = PWM_CMR_CPRE_CLKA;						// Left-align the PWM signal
     REG_PWM_CMR6 = (PWM_CMR_CPRE_MCK_DIV_32 | PWM_CMR_CPOL);
     REG_PWM_CPRD6 = PWM_PERIOD;
-    REG_PWM_CDTY6 = 5510;
+    REG_PWM_CDTY6 = 3000;
     REG_PWM_ENA = PWM_ENA_CHID6; 
 }
 
