@@ -14,5 +14,7 @@ main.c
 
 printf-stdarg.c
 
+PWM_controller.c
+
 uart.c
 

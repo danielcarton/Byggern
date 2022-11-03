@@ -11,6 +11,7 @@
 #include "printf-stdarg.h"
 #include "can_controller.h"
 #include "can_interrupt.h"
+#include "PWM_controller.h"
 
 int main(void)
 {
@@ -23,7 +24,8 @@ int main(void)
 	
 	//printf("Daniel");
 	
-	
+	PWM_init();
+	PWM_set(2500);
 	
     /* Replace with your application code */
     while (1) 
