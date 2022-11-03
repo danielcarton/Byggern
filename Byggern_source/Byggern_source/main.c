@@ -10,6 +10,7 @@
 #include "OLED_menu.h"
 #include "CAN_module_controller.h"
 #include "CAN_module_registers.h"
+#include "CAN_controller.h"
 
 #define OFFSET 0x1000
 #define F_CPU 4915200
@@ -26,10 +27,23 @@ int main(){
 	
 	adc_init();
 	OLED_init();
+	CAN_message_struct message;
 	
 	while (1)
 	{
 	CAN_module_init(MODE_LOOPBACK);
+	message.message_id[0] = 1;
+	message.message_id[1] = 1;
+	message.data_length_code = 7;
+	message.data[0]=(uint8_t)joyyPercent+100;
+	message.data[1]=(uint8_t)joyxPercent+100;
+	message.data[2]=sliderLeft;
+	message.data[3]=sliderRight;
+	message.data[4]=button1State;
+	message.data[5]=button3State;
+	message.data[6]=button2State;
+	CAN_send_message(&message);
+	
 	
 	printf("Joy Y: %d,\t", joyyPercent);
 	printf("Joy X: %d,\t", joyxPercent);
@@ -40,7 +54,6 @@ int main(){
 	printf("Joy button: %d\n\r", button3State);
 	
 	//oled_printf("");
-	displaymenu();
 	//razzledazzleess
 	//for (int row = 0; row < 128; row++)
 	//{

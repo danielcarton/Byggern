@@ -32,12 +32,12 @@ int main(void)
     {
 		CAN_MESSAGE message;
 		CAN_MESSAGE* msg = &message;
-		can_receive(msg, 1);
+		can_receive(msg, 0);
 		for (uint8_t i = 0; i <  8 /*message.data_length*/; i++)
 		{
-			//printf("Data[%d]: %x ", i, msg->data[i]);
+			printf("Data[%d]: %x ", i, msg->data[i]);
 	}
-	//printf("\n\r");
+	printf("\n\r");
 		
     }
 }
