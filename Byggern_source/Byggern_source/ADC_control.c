@@ -131,6 +131,7 @@ void adc_init(){
 	printf("Pos y: %d*y + %d\n\r", (int)(posYfactor*1000), (int)posYadd);
 	printf("Neg y: %d*y + %d\n\r", (int)(negYfactor*1000), (int)negYadd);
 	
+	cli();
 	TCCR1A = 0x00;
 	TCCR1B =  (1<<CS11);
 	TIMSK = (1 << TOIE1);   
@@ -153,11 +154,6 @@ void adc_init(){
 	//sei();
 
 
-}
-
-ISR(INT1_vect){
-	
-	ADC_data = ADC[0x00];
 }
 
 char get_ADC_data(void){

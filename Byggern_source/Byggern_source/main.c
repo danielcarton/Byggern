@@ -27,11 +27,11 @@ int main(){
 	
 	adc_init();
 	OLED_init();
+	CAN_init();
 	CAN_message_struct message;
 	
 	while (1)
 	{
-	CAN_module_init(MODE_LOOPBACK);
 	message.message_id[0] = 1;
 	message.message_id[1] = 1;
 	message.data_length_code = 7;

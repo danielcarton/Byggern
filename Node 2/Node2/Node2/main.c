@@ -35,9 +35,9 @@ int main(void)
 		can_receive(msg, 0);
 		for (uint8_t i = 0; i <  8 /*message.data_length*/; i++)
 		{
-			printf("Data[%d]: %x ", i, msg->data[i]);
+			//printf("Data[%d]: %x ", i, msg->data[i]);
 	}
-	printf("\n\r");
+	//printf("\n\r");
 		
     }
 }

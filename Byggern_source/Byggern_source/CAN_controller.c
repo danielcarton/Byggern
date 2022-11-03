@@ -17,12 +17,13 @@ volatile uint8_t message_interrupt_flag=0;
 
 ISR(INT0_vect){
 	message_interrupt_flag=1;
+	printf("Flag");
 }
 
 void CAN_init(void){
 	CAN_module_init();
 	cli();
-	MCUCR = (1<< ISC01)| (0<<ISC00);
+	MCUCR |= 3;
 	GICR = (1<< INT0);
 	sei();
 	
@@ -87,18 +88,18 @@ CAN_message_struct CAN_recieve_message(void){
 	return(TempMessage);
 }
 
-//void CAN_test(uint8_t test){
-	//CAN_message_struct temp;
-	//temp.message_id[0]=0xff;
-	//temp.message_id[1]=0x01;
-	//temp.data_length_code=0x0f;
-	//temp.data[0]=test;
-	//for (int i = 0; i<8; i++)
-	//{
-		//temp.data[i] = test;
-	//}
-	//CAN_send_message(&temp);
-	//_delay_ms(10);
-	//CAN_message_struct Recieved = CAN_recieve_message();
-	//printf("ID: %x%x, DLC: %x, Data[8]: %x", Recieved.message_id[0], Recieved.message_id[1]>>5, Recieved.data_length_code, Recieved.data[7]);
-//}
+void CAN_test(uint8_t test){
+	CAN_message_struct temp;
+	temp.message_id[0]=0xff;
+	temp.message_id[1]=0x01;
+	temp.data_length_code=0x0f;
+	temp.data[0]=test;
+	for (int i = 0; i<8; i++)
+	{
+		temp.data[i] = test;
+	}
+	CAN_send_message(&temp);
+	_delay_ms(10);
+	CAN_message_struct Recieved = CAN_recieve_message();
+	printf("ID: %x%x, DLC: %x, Data[8]: %x", Recieved.message_id[0], Recieved.message_id[1]>>5, Recieved.data_length_code, Recieved.data[7]);
+}
