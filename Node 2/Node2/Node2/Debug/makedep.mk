@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+ADC_controller.c
+
 can_controller.c
 
 can_interrupt.c
@@ -14,5 +16,12 @@ main.c
 
 printf-stdarg.c
 
+<<<<<<< Updated upstream
+=======
+PWM_controller.c
+
+QOL_tools.c
+
+>>>>>>> Stashed changes
 uart.c
 

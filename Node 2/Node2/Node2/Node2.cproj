@@ -143,6 +143,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ADC_controller.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ADC_controller.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="can_controller.c">
       <SubType>compile</SubType>
     </Compile>
@@ -170,6 +176,21 @@
     <Compile Include="printf-stdarg.h">
       <SubType>compile</SubType>
     </Compile>
+<<<<<<< Updated upstream
+=======
+    <Compile Include="PWM_controller.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="PWM_controller.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="QOL_tools.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="QOL_tools.h">
+      <SubType>compile</SubType>
+    </Compile>
+>>>>>>> Stashed changes
     <Compile Include="uart.c">
       <SubType>compile</SubType>
     </Compile>
