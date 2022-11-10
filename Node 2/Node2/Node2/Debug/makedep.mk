@@ -16,12 +16,9 @@ main.c
 
 printf-stdarg.c
 
-<<<<<<< Updated upstream
-=======
 PWM_controller.c
 
 QOL_tools.c
 
->>>>>>> Stashed changes
 uart.c
 

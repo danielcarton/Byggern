@@ -45,11 +45,8 @@ C_SRCS +=  \
 ../Device_Startup/system_sam3xa.c \
 ../main.c \
 ../printf-stdarg.c \
-<<<<<<< Updated upstream
-=======
 ../PWM_controller.c \
 ../QOL_tools.c \
->>>>>>> Stashed changes
 ../uart.c
 
 
@@ -67,11 +64,8 @@ Device_Startup/startup_sam3xa.o \
 Device_Startup/system_sam3xa.o \
 main.o \
 printf-stdarg.o \
-<<<<<<< Updated upstream
-=======
 PWM_controller.o \
 QOL_tools.o \
->>>>>>> Stashed changes
 uart.o
 
 OBJS_AS_ARGS +=  \
@@ -82,11 +76,8 @@ Device_Startup/startup_sam3xa.o \
 Device_Startup/system_sam3xa.o \
 main.o \
 printf-stdarg.o \
-<<<<<<< Updated upstream
-=======
 PWM_controller.o \
 QOL_tools.o \
->>>>>>> Stashed changes
 uart.o
 
 C_DEPS +=  \
@@ -97,11 +88,8 @@ Device_Startup/startup_sam3xa.d \
 Device_Startup/system_sam3xa.d \
 main.d \
 printf-stdarg.d \
-<<<<<<< Updated upstream
-=======
 PWM_controller.d \
 QOL_tools.d \
->>>>>>> Stashed changes
 uart.d
 
 C_DEPS_AS_ARGS +=  \
@@ -112,11 +100,8 @@ Device_Startup/startup_sam3xa.d \
 Device_Startup/system_sam3xa.d \
 main.d \
 printf-stdarg.d \
-<<<<<<< Updated upstream
-=======
 PWM_controller.d \
 QOL_tools.d \
->>>>>>> Stashed changes
 uart.d
 
 OUTPUT_FILE_PATH +=Node2.elf
@@ -186,8 +171,6 @@ Device_Startup/system_sam3xa.o: ../Device_Startup/system_sam3xa.c
 	@echo Finished building: $<
 	
 
-<<<<<<< Updated upstream
-=======
 ./PWM_controller.o: .././PWM_controller.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
@@ -202,7 +185,6 @@ Device_Startup/system_sam3xa.o: ../Device_Startup/system_sam3xa.c
 	@echo Finished building: $<
 	
 
->>>>>>> Stashed changes
 ./uart.o: .././uart.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
