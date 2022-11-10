@@ -16,6 +16,8 @@ void DAC_init(void);
 // write to DAC 1
 void DAC_write_channel_1(uint16_t value);
 
+Dir_set(uint8_t dir);
+
 
 
 #endif /* DAC_CONTROLLER_H_ */

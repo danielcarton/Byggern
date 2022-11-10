@@ -52,7 +52,32 @@ int main(void)
 		
 		//printf("ADC reads: %d\n\r", ADC_read(0));
 		
-		uint16_t DACval = message.data[1]*16;
+		uint16_t DACval = message.data[1];
+		uint8_t dir;
+		while (1)
+		{
+		
+		if (DACval == 100)
+		{
+			DACval=0;
+			break;
+		}
+		if (DACval > 100)
+		{
+			DACval = (DACval-100)*32;
+			printf("Dir 1\n\r");
+			Dir_set(1);
+			break;
+		}
+		else
+		{
+			DACval = (100-DACval)*32;
+			printf("Dir 0\n\r");
+			Dir_set(0);
+			break;
+		}
+		}
+		
 		printf("DAC value is: %d\n\r", DACval);
 		DAC_write_channel_1(DACval);
 		
