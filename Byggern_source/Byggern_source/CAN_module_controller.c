@@ -90,12 +90,12 @@ void CAN_module_init(){
 	//return(1);
 	}
 	
-	CAN_module_write(MCP_CANCTRL, MODE_LOOPBACK);
+	CAN_module_write(MCP_CANCTRL, MODE_NORMAL);
 	
 	val = CAN_module_read(MCP_CANSTAT);
 	printf("%x\n\r", val);
 	mode_bits = (val & MODE_MASK);
-	if(mode_bits != MODE_LOOPBACK){
+	if(mode_bits != MODE_NORMAL){
 	
 	printf("MCP2515 is NOT in correct mode after reset! Its config bits are %x\n\r", mode_bits);
 	printf("\n!\n");
