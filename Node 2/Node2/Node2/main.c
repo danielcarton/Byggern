@@ -42,18 +42,18 @@ int main(void)
 		can_receive(msg, 0);
 		for (uint8_t i = 0; i <  8 /*message.data_length*/; i++)
 		{
-			printf("Data[%d]: %d ", i, msg->data[i]);
+			//printf("Data[%d]: %d ", i, msg->data[i]);
 		}
-		printf("\n\r");
+		//printf("\n\r");
 		
-		uint8_t duty = joy_to_PWM(message.data[0]);
+		uint16_t duty = joy_to_PWM(message.data[0]);
 		PWM_set(duty);
 		//printf("Joyy: %d, Duty: %d \n\r", message.data[0], duty);
 		
 		//printf("ADC reads: %d\n\r", ADC_read(0));
 		
-		uint16_t DACval = message.data[1];
-		//printf("DAC value is: %d\n\r", DACval);
+		uint16_t DACval = message.data[1]*16;
+		printf("DAC value is: %d\n\r", DACval);
 		DAC_write_channel_1(DACval);
 		
 		uint16_t ADCVAL= ADC_read(0);
@@ -61,8 +61,8 @@ int main(void)
 		if ((lightstate != prev_lightstate) && (lightstate == 1))
 		{
 			i++;
-			printf("light is covered, i = %d! The ADC Read %d\n\r", i, ADCVAL);
-			printf("Score is %d\n\r", i);
+			//printf("light is covered, i = %d! The ADC Read %d\n\r", i, ADCVAL);
+			//printf("Score is %d\n\r", i);
 		}
 		prev_lightstate=lightstate;
 		
