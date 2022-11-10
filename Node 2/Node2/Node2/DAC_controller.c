@@ -23,7 +23,7 @@ void DAC_init(void){
 	PIOD -> PIO_OER |= PIO_OER_P10|PIO_OER_P9; // enable output on pin 32
 	PIOD -> PIO_PUDR |= PIO_PUDR_P10|PIO_PUDR_P9; // disable pullup on pin 32
 	
-	PIOD -> PIO_SODR |= PIO_SODR_P10;
+	PIOD -> PIO_SODR |= PIO_SODR_P9;
 }
 
 
@@ -37,11 +37,11 @@ void DAC_write_channel_1(uint16_t value){
 void Dir_set(uint8_t dir){
     if (dir == 1)
     {
-    PIOD -> PIO_SODR |= PIO_SODR_P9; 
+    PIOD -> PIO_SODR |= PIO_SODR_P10; 
     }
     if (dir == 0)
 	{
-    PIOD -> PIO_CODR |= PIO_CODR_P9;
+    PIOD -> PIO_CODR |= PIO_CODR_P10;
     }
 }
 
