@@ -31,6 +31,7 @@ int main(void)
 	
 	PWM_init();
 	ADC_init();
+	DAC_init();
 	PWM_set(2500);
 	int lightstate = 0, prev_lightstate = 0, i = 0;
     /* Replace with your application code */
@@ -41,23 +42,28 @@ int main(void)
 		can_receive(msg, 1);
 		for (uint8_t i = 0; i <  8 /*message.data_length*/; i++)
 		{
-			//printf("Data[%d]: %x ", i, msg->data[i]);
+			printf("Data[%d]: %x ", i, msg->data[i]);
 		}
-		//printf("\n\r");
+		printf("\n\r");
 		
 		uint8_t duty = joy_to_PWM(message.data[0]);
 		PWM_set(duty);
 		//printf("Joyy: %d, Duty: %d \n\r", message.data[0], duty);
 		
 		//printf("ADC reads: %d\n\r", ADC_read(0));
+		
+		uint16_t DACval = message.data[1];
+		//printf("DAC value is: %d\n\r", DACval);
+		DAC_write_channel_1(DACval);
+		
 		uint16_t ADCVAL= ADC_read(0);
 		lightstate = ADCVAL<ADC_DIGITAL_THRESHOLD;
 		if ((lightstate != prev_lightstate) && (lightstate == 1))
 		{
 			i++;
-			printf("Light is covered, i = %d! The ADC Read %d\n\r", i, ADCVAL);
+			printf("light is covered, i = %d! The ADC Read %d\n\r", i, ADCVAL);
+			printf("Score is %d\n\r", i);
 		}
-		printf("Score is %d\n\r", i);
 		prev_lightstate=lightstate;
 		
     }

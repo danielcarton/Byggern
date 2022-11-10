@@ -41,6 +41,7 @@ C_SRCS +=  \
 ../ADC_controller.c \
 ../can_controller.c \
 ../can_interrupt.c \
+../DAC_controller.c \
 ../Device_Startup/startup_sam3xa.c \
 ../Device_Startup/system_sam3xa.c \
 ../main.c \
@@ -60,6 +61,7 @@ OBJS +=  \
 ADC_controller.o \
 can_controller.o \
 can_interrupt.o \
+DAC_controller.o \
 Device_Startup/startup_sam3xa.o \
 Device_Startup/system_sam3xa.o \
 main.o \
@@ -72,6 +74,7 @@ OBJS_AS_ARGS +=  \
 ADC_controller.o \
 can_controller.o \
 can_interrupt.o \
+DAC_controller.o \
 Device_Startup/startup_sam3xa.o \
 Device_Startup/system_sam3xa.o \
 main.o \
@@ -84,6 +87,7 @@ C_DEPS +=  \
 ADC_controller.d \
 can_controller.d \
 can_interrupt.d \
+DAC_controller.d \
 Device_Startup/startup_sam3xa.d \
 Device_Startup/system_sam3xa.d \
 main.d \
@@ -96,6 +100,7 @@ C_DEPS_AS_ARGS +=  \
 ADC_controller.d \
 can_controller.d \
 can_interrupt.d \
+DAC_controller.d \
 Device_Startup/startup_sam3xa.d \
 Device_Startup/system_sam3xa.d \
 main.d \
@@ -137,6 +142,13 @@ LINKER_SCRIPT_DEP+=  \
 	
 
 ./can_interrupt.o: .././can_interrupt.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./DAC_controller.o: .././DAC_controller.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\SAM3X_DFP\1.0.50\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

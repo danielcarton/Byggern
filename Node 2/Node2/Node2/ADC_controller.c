@@ -14,7 +14,7 @@ void ADC_init(void){
 	
 	// set ADC clock to 1MHz, 96 clock cycle startup time, tracktime is 8 adc clock cycles, transfer time is 9 adc clock cycles, Set freerun mode on, hardware triggers disabled, 12 bit resolution
 	ADC -> ADC_MR |= (ADC_MR_PRESCAL(41))|(ADC_MR_STARTUP_SUT96)|(ADC_MR_TRACKTIM(7))|(ADC_MR_TRANSFER(3))|(ADC_MR_FREERUN_ON)|(ADC_MR_SETTLING_AST9);
-	ADC -> ADC_CHER |= 0xFFFF;
+	ADC -> ADC_CHER |= 0xFFFF; // enable all ports :^)
 }
 
 
