@@ -11,6 +11,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/delay.h>
+#include <util/delay.h>
 
 CAN_message_struct message;
 
@@ -27,13 +28,14 @@ void control(void)
 	message.data[5]=button3State;
 	message.data[6]=button2State;
 	CAN_send_message(&message);
-	_delay_ms(1);
+	_delay_ms(10);
 }
 
 int score(void)
 {
 	CAN_message_struct tempmessage = CAN_recieve_message();
-	
+	_delay_ms(10);
 	int scorevalue = tempmessage.data[0];
+	printf("%d \r\n", scorevalue);
 	return scorevalue;
 }

@@ -23,12 +23,12 @@ int main(){
 	uart_start(MYBURR);
 	fdevopen(&uart_transmit, &uart_recieve);
 	
-	//Comment
-	
 	adc_init();
 	OLED_init();
 	CAN_init();
 	CAN_message_struct message;
+	
+	OLED_reset();
 	
 	while (1)
 	{
