@@ -27,10 +27,13 @@ void main_menu()
     oled_printf("Main menu");
     OLED_goto_pos(1, 9);
     oled_printf("Play");
-    OLED_goto_pos(2, 9);
-    oled_printf("High scores");
+	OLED_goto_pos(2, 9);
+	oled_printf("Users");
     OLED_goto_pos(3, 9);
+    oled_printf("High scores");
+    OLED_goto_pos(4, 9);
     oled_printf("Difficulty");
+	
 	
 	if (button3State == 0)
 	{
@@ -91,7 +94,7 @@ void main_menu()
         if (button3State == 1)
         {
            OLED_reset();
-		   hs_menu();
+		   users_menu();
            // Only run the hs_menu, when exiting the high scores menu break the loop
 		   OLED_clear_arrow();
            
@@ -105,13 +108,21 @@ void main_menu()
         {
             OLED_reset();
             // Only run the diff_menu, when exiting the difficulty menu break the loop
-            diff_menu();
+            hs_menu();
             OLED_clear_arrow();
             arrow_pos = 1;
         }
         break;
     case 4:
         arrow = 4;
+		if (button3State == 1)
+		{
+			OLED_reset();
+			// Only run the users_menu, when exiting the difficulty menu break the loop
+			diff_menu();
+			OLED_clear_arrow();
+			arrow_pos = 1;
+		}
 
         break;
     case 5:
@@ -155,8 +166,113 @@ void play_menu(void)
 		
 		// Game stuff
 		control();
+		int qscore = score();
+		int qscore_old;
+ 		
+ 		OLED_goto_pos(4,0);
+ 		oled_align_centre("Score:");
+		oled_printf("Score:");
+ 		OLED_goto_pos(5,0);
+		oled_align_centre(qscore);
+ 		oled_printf(qscore);
+		if (qscore != qscore_old)
+		{
+			OLED_clear_line(5);
+		}
 		
+		qscore_old = qscore;
 	}
+}
+
+void users_menu(void)
+{
+	arrow_pos = 1;
+	if (button3State == 0)
+	{
+		button_flag = 0;
+	}
+	while(1)
+	{
+		arrow = 1;
+		if (button3State == 0)
+		{
+			button_flag = 0;
+		}
+		
+		OLED_home();
+		oled_align_centre("Users");
+		oled_printf("Users");
+		OLED_goto_pos(7, 9);
+		oled_printf("Back");
+
+		if (joyy < 200 && (flag_down == 1 || flag_up == 1))
+		{
+			if (joyy > 100)
+			{
+				flag_down = 0;
+				flag_up = 0;
+			}
+		}
+
+		if (joyy >= 200 && flag_up == 0)
+		{
+			arrow_pos--;
+			flag_up = 1;
+			OLED_clear_arrow();
+			if (arrow_pos == 0)
+			{
+				arrow_pos = 7;
+			}
+		}
+
+		if (joyy <= 100 && flag_down == 0)
+		{
+			arrow_pos++;
+			flag_down = 1;
+			OLED_clear_arrow();
+			if (arrow_pos == 8)
+			{
+				arrow_pos = 1;
+			}
+		}
+
+		switch (arrow_pos)
+		{
+			case 1:
+			arrow = 1;
+			break;
+			case 2:
+			arrow = 2;
+			break;
+			case 3:
+			arrow = 3;
+			break;
+			case 4:
+			arrow = 4;
+			break;
+			case 5:
+			arrow = 5;
+			break;
+			case 6:
+			arrow = 6;
+			break;
+			case 7:
+			arrow = 7;
+			break;
+		}
+
+		OLED_print_arrow(arrow, 0);
+
+		if (button3State == 1 && arrow == 7)
+		{
+			arrow = 1;
+			OLED_clear_arrow();
+			OLED_reset();
+			
+			break;
+		}
+	}
+	OLED_clear_arrow();
 }
 
 void hs_menu(void)
