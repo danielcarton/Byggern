@@ -14,6 +14,7 @@
 #include "CAN_controller.h"
 
 volatile uint8_t message_interrupt_flag=0;
+extern CAN_message_struct message;
 
 ISR(INT0_vect){
 	message_interrupt_flag=1;

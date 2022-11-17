@@ -9,20 +9,6 @@
 #ifndef CAN_CONTROLLER_H_
 #define CAN_CONTROLLER_H_
 
-typedef struct  
-{
-	uint8_t message_id[2];
-	uint8_t data_length_code;
-	uint8_t data[8];
-}CAN_message_struct;
-
-/*
- * CAN_controller.c
- *
- * Created: 12/10/2022 20:33:43
- *  Author: danie
- */ 
-
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/delay.h>
@@ -30,6 +16,15 @@ typedef struct
 #include "SPI_control.h"
 #include "CAN_module_registers.h"
 #include "CAN_controller.h"
+
+typedef struct  
+{
+	uint8_t message_id[2];
+	uint8_t data_length_code;
+	uint8_t data[8];
+}CAN_message_struct;
+
+ 
 
 void CAN_init(void);
 

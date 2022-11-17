@@ -68,6 +68,8 @@ void OLED_init(){
 	OLED_Write_Command(0xa4);
 	OLED_Write_Command(0xa6);
 	OLED_Write_Command(0xaf);
+	
+	OLED_reset();
 }
 
 void OLED_reset(void){

@@ -91,10 +91,12 @@ void main_menu()
         if (button3State == 1)
         {
            OLED_reset();
+		   hs_menu();
            // Only run the hs_menu, when exiting the high scores menu break the loop
-           hs_menu();
 		   OLED_clear_arrow();
+           
 		   arrow_pos = 1;
+		   
         }
         break;
     case 3:
@@ -128,6 +130,7 @@ void main_menu()
 // Each submenu is its own function that loops and functions similary like the main menu
 void play_menu(void)
 {
+	OLED_reset();
 	while(1)
 	{
 		if (button3State == 0)
@@ -138,76 +141,22 @@ void play_menu(void)
 		OLED_home();
 		oled_align_centre("Play");
 		oled_printf("Play");
-		OLED_goto_pos(7, 9);
-		oled_printf("Quit");
+		OLED_goto_pos(1, 0);
+		oled_align_centre("LB to quit");
+		oled_printf("LB to quit");
 
-		if (joyy < 200 && (flag_down == 1 || flag_up == 1))
-		{
-			if (joyy > 100)
-			{
-				flag_down = 0;
-				flag_up = 0;
-			}
-		}
-
-		if (joyy >= 200 && flag_up == 0)
-		{
-			arrow_pos--;
-			flag_up = 1;
-			OLED_clear_arrow();
-			if (arrow_pos == 0)
-			{
-				arrow_pos = 7;
-			}
-		}
-
-		if (joyy <= 100 && flag_down == 0)
-		{
-			arrow_pos++;
-			flag_down = 1;
-			OLED_clear_arrow();
-			if (arrow_pos == 8)
-			{
-				arrow_pos = 1;
-			}
-		}
-
-		switch (arrow_pos)
-		{
-		case 1:
-			arrow = 1;
-			break;
-		case 2:
-			arrow = 2;
-			break;
-		case 3:
-			arrow = 3;
-			break;
-		case 4:
-			arrow = 4;
-			break;
-		case 5:
-			arrow = 5;
-			break;
-		case 6:
-			arrow = 6;
-			break;
-		case 7:
-			arrow = 7;
-			break;
-		}
-
-		OLED_print_arrow(arrow, 0);
-
-		if (button3State == 1 && arrow == 7)
+		if (button2State == 1)
 		{
 			arrow = 1;
 			OLED_reset();
 			
 			break;
 		}
+		
+		// Game stuff
+		control();
+		
 	}
-	OLED_clear_arrow();
 }
 
 void hs_menu(void)
@@ -215,15 +164,21 @@ void hs_menu(void)
 	arrow_pos = 1;
 	if (button3State == 0)
 	{
-		button_flag = 0;
+ 		button_flag = 0;
 	}
 	while(1)
 	{
+		arrow = 1;
+		if (button3State == 0)
+		{
+			button_flag = 0;
+		}
+		
 		OLED_home();
-		oled_align_centre("High scores");
-		oled_printf("High scores");
+		oled_align_centre("High Scores");
+		oled_printf("High Scores");
 		OLED_goto_pos(7, 9);
-		oled_printf("Quit");
+		oled_printf("Back");
 
 		if (joyy < 200 && (flag_down == 1 || flag_up == 1))
 		{
@@ -286,6 +241,7 @@ void hs_menu(void)
 		if (button3State == 1 && arrow == 7)
 		{
 			arrow = 1;
+			OLED_clear_arrow();
 			OLED_reset();
 			
 			break;
@@ -303,6 +259,11 @@ void diff_menu(void)
 	}
 	while(1)
 	{
+		if (button3State == 0)
+		{
+			button_flag = 0;
+		}
+		
 		OLED_home();
 		oled_align_centre("Difficulty");
 		oled_printf("Difficulty");
@@ -377,3 +338,171 @@ void diff_menu(void)
 	}
 	OLED_clear_arrow();
 }
+
+// void hs_menu(void)
+// {
+// 	arrow_pos = 1;
+// 	if (button3State == 0)
+// 	{
+// 		button_flag = 0;
+// 	}
+// 	while(1)
+// 	{
+// 		OLED_home();
+// 		oled_align_centre("High scores");
+// 		oled_printf("High scores");
+// 		OLED_goto_pos(7, 9);
+// 		oled_printf("Quit");
+// 
+// 		if (joyy < 200 && (flag_down == 1 || flag_up == 1))
+// 		{
+// 			if (joyy > 100)
+// 			{
+// 				flag_down = 0;
+// 				flag_up = 0;
+// 			}
+// 		}
+// 
+// 		if (joyy >= 200 && flag_up == 0)
+// 		{
+// 			arrow_pos--;
+// 			flag_up = 1;
+// 			OLED_clear_arrow();
+// 			if (arrow_pos == 0)
+// 			{
+// 				arrow_pos = 7;
+// 			}
+// 		}
+// 
+// 		if (joyy <= 100 && flag_down == 0)
+// 		{
+// 			arrow_pos++;
+// 			flag_down = 1;
+// 			OLED_clear_arrow();
+// 			if (arrow_pos == 8)
+// 			{
+// 				arrow_pos = 1;
+// 			}
+// 		}
+// 
+// 		switch (arrow_pos)
+// 		{
+// 			case 1:
+// 			arrow = 1;
+// 			break;
+// 			case 2:
+// 			arrow = 2;
+// 			break;
+// 			case 3:
+// 			arrow = 3;
+// 			break;
+// 			case 4:
+// 			arrow = 4;
+// 			break;
+// 			case 5:
+// 			arrow = 5;
+// 			break;
+// 			case 6:
+// 			arrow = 6;
+// 			break;
+// 			case 7:
+// 			arrow = 7;
+// 			break;
+// 		}
+// 
+// 		OLED_print_arrow(arrow, 0);
+// 
+// 		if (button3State == 1 && arrow == 7)
+// 		{
+// 			arrow = 1;
+// 			OLED_reset();
+// 			
+// 			break;
+// 		}
+// 	}
+// 	OLED_clear_arrow();
+// }
+// 
+// void diff_menu(void)
+// {
+// 	arrow_pos = 1;
+// 	if (button3State == 0)
+// 	{
+// 		button_flag = 0;
+// 	}
+// 	while(1)
+// 	{
+// 		OLED_home();
+// 		oled_align_centre("Difficulty");
+// 		oled_printf("Difficulty");
+// 		OLED_goto_pos(7, 9);
+// 		oled_printf("Back");
+// 
+// 		if (joyy < 200 && (flag_down == 1 || flag_up == 1))
+// 		{
+// 			if (joyy > 100)
+// 			{
+// 				flag_down = 0;
+// 				flag_up = 0;
+// 			}
+// 		}
+// 
+// 		if (joyy >= 200 && flag_up == 0)
+// 		{
+// 			arrow_pos--;
+// 			flag_up = 1;
+// 			OLED_clear_arrow();
+// 			if (arrow_pos == 0)
+// 			{
+// 				arrow_pos = 7;
+// 			}
+// 		}
+// 
+// 		if (joyy <= 100 && flag_down == 0)
+// 		{
+// 			arrow_pos++;
+// 			flag_down = 1;
+// 			OLED_clear_arrow();
+// 			if (arrow_pos == 8)
+// 			{
+// 				arrow_pos = 1;
+// 			}
+// 		}
+// 
+// 		switch (arrow_pos)
+// 		{
+// 			case 1:
+// 			arrow = 1;
+// 			break;
+// 			case 2:
+// 			arrow = 2;
+// 			break;
+// 			case 3:
+// 			arrow = 3;
+// 			break;
+// 			case 4:
+// 			arrow = 4;
+// 			break;
+// 			case 5:
+// 			arrow = 5;
+// 			break;
+// 			case 6:
+// 			arrow = 6;
+// 			break;
+// 			case 7:
+// 			arrow = 7;
+// 			break;
+// 		}
+// 
+// 		OLED_print_arrow(arrow, 0);
+// 
+// 		if (button3State == 1 && arrow == 7)
+// 		{
+// 			arrow = 1;
+// 			OLED_reset();
+// 			
+// 			break;
+// 		}
+// 	}
+// 	OLED_clear_arrow();
+// }

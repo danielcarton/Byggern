@@ -32,22 +32,23 @@ int main(){
 	
 	while (1)
 	{
-	message.message_id[0] = 0xFF;
-	message.message_id[1] = 0xFF;
-	message.data_length_code = 7;
-	message.data[0]=(uint8_t)joyyPercent+100;
-	message.data[1]=(uint8_t)joyxPercent+100;
-	message.data[2]=sliderLeft;
-	message.data[3]=sliderRight;
-	message.data[4]=button1State;
-	message.data[5]=button3State;
-	message.data[6]=button2State;
-	CAN_send_message(&message);
-	_delay_ms(10);
+// 	message.message_id[0] = 0xFF;
+// 	message.message_id[1] = 0xFF;
+// 	message.data_length_code = 7;
+// 	message.data[0]=(uint8_t)joyyPercent+100;
+// 	message.data[1]=(uint8_t)joyxPercent+100;
+// 	message.data[2]=sliderLeft;
+// 	message.data[3]=sliderRight;
+// 	message.data[4]=button1State;
+// 	message.data[5]=button3State;
+// 	message.data[6]=button2State;
+// 	CAN_send_message(&message);
+// 	_delay_ms(10);
 	
 	printf("joyy: %d, joyx: %d, sliderLeft: %d, SliderRight: %d, rightbutton: %d, Leftbutton: %d, Joybutton: %d\n\r", joyyPercent, joyxPercent, sliderLeft, sliderRight, button2State, button1State, button3State);
 	printf("data[0]: %d, data[1]: %d, data[2]: %d, data[3]: %d, data[4]: %d, data[5]: %d, data[6]: %d\n\n\r", message.data[0], message.data[1], message.data[2], message.data[3], message.data[4], message.data[5], message.data[6]);
 	
+	main_menu();
 	
 	//printf("Joy Y: %d,\t", joyyPercent);
 	//printf("Joy X: %d,\t", joyxPercent);
