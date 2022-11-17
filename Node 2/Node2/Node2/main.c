@@ -115,6 +115,10 @@ int main(void)
 			i++;
 			//printf("light is covered, i = %d! The ADC Read %d\n\r", i, ADCVAL);
 			//printf("Score is %d\n\r", i);
+			CAN_MESSAGE.id = 5;
+			CAN_MESSAGE.data_length = 1;
+			CAN_MESSAGE.data[0] = i;
+			can_send(CAN_MESSAGE, 1);
 		}
 		prev_lightstate=lightstate;
 		
