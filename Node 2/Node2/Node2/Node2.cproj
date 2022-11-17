@@ -176,6 +176,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="PID_controller.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="PID_controller.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="printf-stdarg.c">
       <SubType>compile</SubType>
     </Compile>
@@ -192,6 +198,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="QOL_tools.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Solenoid.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Solenoid.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="uart.c">
