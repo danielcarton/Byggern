@@ -16,11 +16,15 @@ Device_Startup\system_sam3xa.c
 
 main.c
 
+PID_controller.c
+
 printf-stdarg.c
 
 PWM_controller.c
 
 QOL_tools.c
+
+Solenoid.c
 
 uart.c
 
