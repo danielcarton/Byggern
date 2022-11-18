@@ -14,23 +14,14 @@
 #include "fonts.h"
 
 
-#ifndef OLED_COMMAND_ADDRESS
-#define OLED_COMMAND_ADDRESS  0x1000
-#endif
 
-#ifndef OLED_DATA_ADDRESS
-#define OLED_DATA_ADDRESS 0x1200
-#endif
-
-volatile char* oled_command = OLED_COMMAND_ADDRESS;
-volatile char* oled_data = OLED_DATA_ADDRESS;
+volatile char* oled_command = 0x1000;
+volatile char* oled_data = 0x1200;
 
 
 
-typedef enum {horizontal, vertical, page}addressingMode;
+typedef enum {horizontal, vertical, page}addressingMode; // modes of addressing
 
-//typedef enum{FONT4, FONT5, FONT8}fontName;
-volatile int fontSize = 8;
 
 struct position{
 	uint8_t line;
@@ -174,27 +165,29 @@ void OLED_print_arrow ( uint8_t row , uint8_t col )
 	OLED_Write_Data(0b00111100);
 	OLED_Write_Data(0b00011000);
 }
-int oled_put_char(unsigned char c){
+int oled_write(unsigned char c){
 	uint8_t printChar = (int)c-32;
 	
-	for (int i=0; i < fontSize; i++) {
+	for (int i=0; i < 8; i++) {
 		OLED_Write_Data(pgm_read_word(&font8[printChar][i]));
-		pos.column += fontSize;
-		oled_is_out_of_bounds();
+		pos.column = pos.column + 8;
+		fix_oled_pos();
 	}
 	
 	return 0;
 }
 
-static FILE mystdout = FDEV_SETUP_STREAM(oled_put_char, NULL, _FDEV_SETUP_WRITE);
+static FILE mystdout = FDEV_SETUP_STREAM(oled_write, NULL, _FDEV_SETUP_WRITE);
 
-void oled_is_out_of_bounds() {
-	if (pos.column > 127) {
-		pos.column -= 128;
-		pos.line += 1;
-		if (pos.line > 7) {
-			pos.line = 0;
-		}
+void fix_oled_pos() {
+	if (pos.column >= 128) {
+		pos.column = pos.column-128;
+	}
+	
+	pos.line = pos.line+ 1;
+	
+	if (pos.line > 7) {
+		pos.line = 0;
 	}
 }
 
@@ -212,6 +205,6 @@ void oled_printf(char* data, ...){
 	
 }
 
-void oled_align_centre(char* title) {
-	OLED_goto_column(64- fontSize*strlen(title)/2);
+void OLED_center(char* toAlign) {
+	OLED_goto_column(64- 8*strlen(toAlign)/2);
 }

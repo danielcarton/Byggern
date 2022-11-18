@@ -8,6 +8,8 @@ CAN_controller.c
 
 CAN_module_controller.c
 
+game.c
+
 main.c
 
 OLED_control.c

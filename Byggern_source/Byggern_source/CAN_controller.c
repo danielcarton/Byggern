@@ -18,7 +18,6 @@ extern CAN_message_struct message;
 
 ISR(INT0_vect){
 	message_interrupt_flag=1;
-	printf("Flag");
 }
 
 void CAN_init(void){
@@ -35,12 +34,13 @@ void CAN_init(void){
 	CAN_module_write(MCP_CNF3, 0x05); // set PS2 to 7 with no wakeup filter
 	CAN_module_write(MCP_CANCTRL, MODE_NORMAL); 
 }
+
+
 uint8_t CAN_message_recieved(void){
 	uint8_t temp = message_interrupt_flag;
 	message_interrupt_flag=0;
 	return(temp);
 }
-
 
 
 

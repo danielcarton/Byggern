@@ -14,17 +14,18 @@
 
 #define OFFSET 0x1000
 #define F_CPU 4915200
-#define BAUD 9600
-#define MYBURR F_CPU/16/BAUD-1
+#define BAUDRATE 9600
+#define BURR F_CPU/16/BAUDRATE-1
 
 
 int main(){
 	MCUCR = (1<<SRE);
-	uart_start(MYBURR);
+	uart_start(BURR);
 	fdevopen(&uart_transmit, &uart_recieve);
 	
 	adc_init();
 	OLED_init();
+	SPI_Init();
 	CAN_init();
 	CAN_message_struct message;
 	

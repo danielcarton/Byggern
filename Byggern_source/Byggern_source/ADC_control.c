@@ -6,17 +6,7 @@
 #include <stdio.h>
 
 
-#define set_bit( reg, bit ) (reg |= (1 << bit))
-#define clear_bit( reg, bit ) (reg &= ~(1 << bit))
-#define test_bit( reg, bit ) (reg & (1 << bit))
-#define loop_until_bit_is_set( reg, bit ) while( !test_bit( reg, bit ) )
-#define loop_until_bit_is_clear( reg, bit ) while( test_bit( reg, bit ) )
-#define toggle_bit(reg, bit) (reg ^= (1 << bit))
-
 	
-#ifndef ADC_ADDRESS
-#define ADC_ADDRESS 0x1400
-#endif
 
 volatile char *ADC = (int) 0x1400; // Start address for the ADC
 
@@ -94,12 +84,14 @@ ISR (TIMER1_OVF_vect){
 
 
 void adc_init(){
+	// create PWM for ADC clock
     TCCR3A = (1 << WGM30) | (1 << WGM31) | (1 << COM3A0);
     TCCR3B = (1 << CS30) | (1 << WGM33);
-    OCR3A = 2; // Define the frequency of the generated PWM signal
-    DDRD |= (1 << DDD4); // Configure PD4 as PWM output
+    OCR3A = 2; 
+    DDRD |= (1 << DDD4); 
 	
 	
+	// calibrate joystick 
 	_delay_ms(10);
 	int times = 0;
 	int ignore;
@@ -118,6 +110,8 @@ void adc_init(){
 	middleyjoyy = intermittenty/times;
 	printf("\n\n\r %d %d \n", middleyjoyx, middleyjoyy);
 	
+	
+	// factors for joystick linearization
 	posXfactor = (10000)/(255-middleyjoyx);
 	posXadd = -1*(100*middleyjoyx)/(255-middleyjoyx);
 	negXfactor = (10000/middleyjoyx);
@@ -131,6 +125,7 @@ void adc_init(){
 	printf("Pos y: %d*y + %d\n\r", (int)(posYfactor*1000), (int)posYadd);
 	printf("Neg y: %d*y + %d\n\r", (int)(negYfactor*1000), (int)negYadd);
 	
+	// set and enable timer
 	cli();
 	TCCR1A = 0x00;
 	TCCR1B =  (1<<CS11);
@@ -147,10 +142,8 @@ char get_ADC_data(void){
 }
 
 void ADC_start_read(void){
-	
 	char data = 0x00;
 	ADC[0x00] = data;
-	
 }
 
 

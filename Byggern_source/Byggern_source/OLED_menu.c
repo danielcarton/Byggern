@@ -23,7 +23,7 @@ void main_menu()
 {
     // Run right after bootup after a oled_reset() to clear screen
 	OLED_home();
-    oled_align_centre("Main menu");
+    OLED_center("Main menu");
     oled_printf("Main menu");
     OLED_goto_pos(1, 9);
     oled_printf("Play");
@@ -150,10 +150,10 @@ void play_menu(void)
 		}
 		
 		OLED_home();
-		oled_align_centre("Play");
+		OLED_center("Play");
 		oled_printf("Play");
 		OLED_goto_pos(1, 0);
-		oled_align_centre("LB to quit");
+		OLED_center("LB to quit");
 		oled_printf("LB to quit");
 
 		if (button2State == 1)
@@ -170,10 +170,10 @@ void play_menu(void)
 		int qscore_old;
  		
  		OLED_goto_pos(4,0);
- 		oled_align_centre("Score:");
+ 		OLED_center("Score:");
 		oled_printf("Score:");
  		OLED_goto_pos(5,0);
-		oled_align_centre(qscore);
+		OLED_center(qscore);
  		oled_printf(qscore);
 		if (qscore != qscore_old)
 		{
@@ -200,7 +200,7 @@ void users_menu(void)
 		}
 		
 		OLED_home();
-		oled_align_centre("Users");
+		OLED_center("Users");
 		oled_printf("Users");
 		OLED_goto_pos(7, 9);
 		oled_printf("Back");
@@ -291,7 +291,7 @@ void hs_menu(void)
 		}
 		
 		OLED_home();
-		oled_align_centre("High Scores");
+		OLED_center("High Scores");
 		oled_printf("High Scores");
 		OLED_goto_pos(7, 9);
 		oled_printf("Back");
@@ -381,7 +381,7 @@ void diff_menu(void)
 		}
 		
 		OLED_home();
-		oled_align_centre("Difficulty");
+		OLED_center("Difficulty");
 		oled_printf("Difficulty");
 		OLED_goto_pos(7, 9);
 		oled_printf("Back");
